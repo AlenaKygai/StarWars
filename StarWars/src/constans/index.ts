@@ -1,5 +1,7 @@
 export const PAGE_SIZE = 10;
 
-export enum CHARACTERS_KEYS {
-  ALL = "characters",
-}
+export const CHARACTERS_KEYS = {
+  ALL: "characters",
+  FILMS: "films",
+  STARSHIPS: "starships",
+} as const;

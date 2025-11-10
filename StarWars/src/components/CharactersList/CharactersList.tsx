@@ -2,12 +2,18 @@ import ReactPaginate from "react-paginate";
 import React from "react";
 import useCharactersList from "../../hooks/useCharactersList";
 import CharacterCard from "../CharacterCard/CharacterCard";
-import type { ICharacter } from "../../api/charactersAPI";
+import type { ICharacter } from "../../api/types";
 import "./CharactersList.scss";
 
 const CharactersList = () => {
-  const { data, isLoading, error, pageCount, viewAlert, handlePageClick } =
-    useCharactersList();
+  const {
+    data,
+    isLoading,
+    error,
+    pageCount,
+    handleShowDetails,
+    handlePageClick,
+  } = useCharactersList();
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
@@ -19,7 +25,7 @@ const CharactersList = () => {
           <CharacterCard
             key={character.id}
             character={character}
-            handleShowDetails={() => viewAlert(character.id)}
+            handleShowDetails={() => handleShowDetails(character)}
           />
         ))}
       </div>

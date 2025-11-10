@@ -1,6 +1,8 @@
-import useCharactersQuery from "../queries/useCharactersQuery";
 import { useState, useMemo, useCallback } from "react";
-import type { ICharactersResponse } from "../api/charactersAPI";
+import useCharactersQuery from "../queries/useCharactersQuery";
+import useStarshipsQuery from "../queries/useStarshipsQuery";
+import useFilmsQuery from "../queries/useFilmsQuery";
+import type { ICharacter, ICharactersResponse } from "../api/types";
 import { PAGE_SIZE } from "../constans";
 
 type TUseCharactersListReturn = {
@@ -8,7 +10,7 @@ type TUseCharactersListReturn = {
   isLoading: boolean;
   error: Error | null;
   pageCount: number;
-  viewAlert: (id: number) => void;
+  handleShowDetails: (character: ICharacter) => void;
   handlePageClick: (event: TPagination) => void;
 };
 
@@ -19,27 +21,47 @@ type TPagination = {
 const useCharactersList = (): TUseCharactersListReturn => {
   const [page, setPage] = useState<number>(1);
 
-  const { data, isLoading, error } = useCharactersQuery(page);
+  const {
+    data: dataCharacters,
+    isLoading: isLoadingCharacters,
+    error: errorCharacters,
+  } = useCharactersQuery(page);
+
+  const {
+    data: dataFilms,
+    isLoading: isLoadingFilms,
+    error: errorFilms,
+  } = useFilmsQuery();
+
+  const {
+    data: dataStarships,
+    isLoading: isLoadingStarships,
+    error: errorStarships,
+  } = useStarshipsQuery();
+
+  console.log("dataFilms", dataFilms);
+
+  console.log("dataStarShips", dataStarships);
 
   const pageCount = useMemo(
-    () => Math.ceil((data?.count || 0) / PAGE_SIZE),
-    [data?.count]
+    () => Math.ceil((dataCharacters?.count || 0) / PAGE_SIZE),
+    [dataCharacters?.count]
   );
 
   const handlePageClick = useCallback(({ selected }: TPagination) => {
     setPage(selected + 1);
   }, []);
 
-  const viewAlert = useCallback((id: number) => {
-    window.alert(`hello ${id}`);
+  const handleShowDetails = useCallback((character: ICharacter) => {
+    console.log("Selected character", character);
   }, []);
 
   return {
-    data,
-    isLoading,
-    error,
+    data: dataCharacters,
+    isLoading: isLoadingCharacters && isLoadingFilms && isLoadingStarships,
+    error: errorCharacters || errorFilms || errorStarships,
     pageCount,
-    viewAlert,
+    handleShowDetails,
     handlePageClick,
   };
 };

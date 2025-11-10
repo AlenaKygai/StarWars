@@ -1,6 +1,6 @@
 import React from "react";
 import "./CharacterCard.scss";
-import type { ICharacter } from "../../api/charactersAPI";
+import type { ICharacter } from "../../api/types";
 
 type TCharacterCardProps = {
   character: ICharacter;
