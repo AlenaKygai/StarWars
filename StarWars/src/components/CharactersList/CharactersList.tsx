@@ -2,6 +2,7 @@ import ReactPaginate from "react-paginate";
 import React from "react";
 import useCharactersList from "../../hooks/useCharactersList";
 import CharacterCard from "../CharacterCard/CharacterCard";
+import type { ICharacter } from "../../api/charactersAPI";
 import "./CharactersList.scss";
 
 const CharactersList = () => {
@@ -14,7 +15,7 @@ const CharactersList = () => {
   return (
     <div className="CharactersList">
       <div className="CharactersList__items">
-        {data.results.map((character: any) => (
+        {data?.results.map((character: ICharacter) => (
           <CharacterCard
             key={character.id}
             character={character}
@@ -27,7 +28,7 @@ const CharactersList = () => {
           breakLabel="..."
           nextLabel="next"
           onPageChange={handlePageClick}
-          pageRangeDisplayed={2}
+          pageRangeDisplayed={5}
           pageCount={pageCount}
           previousLabel="previous"
           renderOnZeroPageCount={null}

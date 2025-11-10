@@ -1,7 +1,13 @@
 import React from "react";
 import "./CharacterCard.scss";
+import type { ICharacter } from "../../api/charactersAPI";
 
-const CharacterCard = (props) => {
+type TCharacterCardProps = {
+  character: ICharacter;
+  handleShowDetails: () => void;
+}
+
+const CharacterCard = (props: TCharacterCardProps) => {
   const { character, handleShowDetails } = props;
 
   return (
