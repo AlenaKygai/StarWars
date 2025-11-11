@@ -3,6 +3,7 @@ import useCharactersQuery from "../queries/useCharactersQuery";
 import useStarshipsQuery from "../queries/useStarshipsQuery";
 import useFilmsQuery from "../queries/useFilmsQuery";
 import type { ICharacter, ICharactersResponse } from "../api/types";
+import type { TModifiedCharacter, TPagination } from "../types";
 import { PAGE_SIZE } from "../constans";
 
 type TUseCharactersListReturn = {
@@ -12,14 +13,16 @@ type TUseCharactersListReturn = {
   pageCount: number;
   handleShowDetails: (character: ICharacter) => void;
   handlePageClick: (event: TPagination) => void;
-};
-
-type TPagination = {
-  selected: number;
+  modalIsOpen: boolean;
+  handleCloseModal: () => void;
+  selectedCharacter?: TModifiedCharacter;
 };
 
 const useCharactersList = (): TUseCharactersListReturn => {
   const [page, setPage] = useState<number>(1);
+  const [modalIsOpen, setIsOpen] = useState<boolean>(false);
+  const [selectedCharacter, setSelectedCharacter] =
+    useState<TModifiedCharacter>();
 
   const {
     data: dataCharacters,
@@ -44,6 +47,14 @@ const useCharactersList = (): TUseCharactersListReturn => {
     [dataCharacters?.count]
   );
 
+  const handleOpenModal = useCallback(() => {
+    setIsOpen(true);
+  }, []);
+
+  const handleCloseModal = useCallback(() => {
+    setIsOpen(false);
+  }, []);
+
   const handlePageClick = useCallback(({ selected }: TPagination) => {
     setPage(selected + 1);
   }, []);
@@ -61,12 +72,15 @@ const useCharactersList = (): TUseCharactersListReturn => {
         return dataStarships?.find((ship) => ship.id === id);
       });
 
-      const newCharacter = {
+      const modifiedCharacter = {
         ...character,
         films: characterFilms,
         starships: characterStarships,
-      };
-      console.log("newCharacter", newCharacter);
+      } as TModifiedCharacter;
+
+      setSelectedCharacter(modifiedCharacter);
+
+      handleOpenModal();
     },
     [dataFilms, dataStarships]
   );
@@ -78,6 +92,9 @@ const useCharactersList = (): TUseCharactersListReturn => {
     pageCount,
     handleShowDetails,
     handlePageClick,
+    modalIsOpen,
+    handleCloseModal,
+    selectedCharacter,
   };
 };
 
