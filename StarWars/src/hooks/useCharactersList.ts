@@ -39,10 +39,6 @@ const useCharactersList = (): TUseCharactersListReturn => {
     error: errorStarships,
   } = useStarshipsQuery();
 
-  console.log("dataFilms", dataFilms);
-
-  console.log("dataStarShips", dataStarships);
-
   const pageCount = useMemo(
     () => Math.ceil((dataCharacters?.count || 0) / PAGE_SIZE),
     [dataCharacters?.count]
@@ -52,9 +48,28 @@ const useCharactersList = (): TUseCharactersListReturn => {
     setPage(selected + 1);
   }, []);
 
-  const handleShowDetails = useCallback((character: ICharacter) => {
-    console.log("Selected character", character);
-  }, []);
+  const handleShowDetails = useCallback(
+    (character: ICharacter) => {
+      const characterFilmsIds = character.films;
+      const characterStarshipsIds = character.starships;
+
+      const characterFilms = characterFilmsIds.map((id) => {
+        return dataFilms?.find((f) => f.id === id);
+      });
+
+      const characterStarships = characterStarshipsIds.map((id) => {
+        return dataStarships?.find((ship) => ship.id === id);
+      });
+
+      const newCharacter = {
+        ...character,
+        films: characterFilms,
+        starships: characterStarships,
+      };
+      console.log("newCharacter", newCharacter);
+    },
+    [dataFilms, dataStarships]
+  );
 
   return {
     data: dataCharacters,

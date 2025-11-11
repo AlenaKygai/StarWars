@@ -1,9 +1,6 @@
 import { api } from "./base";
-import type {
-  ICharactersResponse,
-  IFilmsResponse,
-  IStarshipsResponse,
-} from "./types";
+import { fetchAllPages } from "./utils";
+import type { ICharactersResponse, IFilm, IStarship } from "./types";
 
 const charactersAPI = {
   getCharacters: async (page: number): Promise<ICharactersResponse> => {
@@ -15,14 +12,14 @@ const charactersAPI = {
     return response.data;
   },
 
-  getFilms: async (): Promise<IFilmsResponse> => {
-    const response = await api.get<IFilmsResponse>(`/films`);
-    return response.data;
+  getFilms: async (): Promise<IFilm[]> => {
+    const response = await fetchAllPages<IFilm>(`/films`);
+    return response;
   },
 
-  getStarships: async (): Promise<IStarshipsResponse> => {
-    const response = await api.get<IStarshipsResponse>(`/starships`);
-    return response.data;
+  getStarships: async (): Promise<IStarship[]> => {
+    const response = await fetchAllPages<IStarship>(`/starships`);
+    return response;
   },
 };
 
