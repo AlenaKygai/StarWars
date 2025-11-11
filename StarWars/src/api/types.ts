@@ -5,9 +5,15 @@ export interface IPaginatedResponse<T> {
   results: T[];
 }
 
+export interface ICharacterImage {
+  id: number;
+  image: string;
+}
+
 export interface ICharacter {
   id: number;
   name: string;
+  image?:string;
   height: string;
   mass: string;
   hair_color: string;

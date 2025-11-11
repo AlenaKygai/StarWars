@@ -27,7 +27,7 @@ const CharactersList = () => {
   return (
     <div className="CharactersList">
       <div className="CharactersList__items">
-        {data?.results.map((character: ICharacter) => (
+        {data?.map((character: ICharacter) => (
           <CharacterCard
             key={character.id}
             character={character}

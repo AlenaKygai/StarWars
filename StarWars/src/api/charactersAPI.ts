@@ -1,8 +1,18 @@
-import { api } from "./base";
+import { api, apiImages } from "./base";
 import { fetchAllPages } from "./utils";
-import type { ICharactersResponse, IFilm, IStarship } from "./types";
+import type {
+  ICharacterImage,
+  ICharactersResponse,
+  IFilm,
+  IStarship,
+} from "./types";
 
 const charactersAPI = {
+  getCharactersImages: async (): Promise<ICharacterImage[]> => {
+    const response = await apiImages.get<ICharacterImage[]>(`/all.json`);
+    return response.data;
+  },
+
   getCharacters: async (page: number): Promise<ICharactersResponse> => {
     const response = await api.get<ICharactersResponse>(`/people`, {
       params: {

@@ -2,12 +2,12 @@ import { useState, useMemo, useCallback } from "react";
 import useCharactersQuery from "../queries/useCharactersQuery";
 import useStarshipsQuery from "../queries/useStarshipsQuery";
 import useFilmsQuery from "../queries/useFilmsQuery";
-import type { ICharacter, ICharactersResponse } from "../api/types";
+import type { ICharacter } from "../api/types";
 import type { TModifiedCharacter, TPagination } from "../types";
 import { PAGE_SIZE } from "../constans";
 
 type TUseCharactersListReturn = {
-  data?: ICharactersResponse;
+  data?: ICharacter[];
   isLoading: boolean;
   error: Error | null;
   pageCount: number;
@@ -25,6 +25,7 @@ const useCharactersList = (): TUseCharactersListReturn => {
     useState<TModifiedCharacter>();
 
   const {
+    count,
     data: dataCharacters,
     isLoading: isLoadingCharacters,
     error: errorCharacters,
@@ -42,10 +43,7 @@ const useCharactersList = (): TUseCharactersListReturn => {
     error: errorStarships,
   } = useStarshipsQuery();
 
-  const pageCount = useMemo(
-    () => Math.ceil((dataCharacters?.count || 0) / PAGE_SIZE),
-    [dataCharacters?.count]
-  );
+  const pageCount = useMemo(() => Math.ceil((count || 0) / PAGE_SIZE), [count]);
 
   const handleOpenModal = useCallback(() => {
     setIsOpen(true);

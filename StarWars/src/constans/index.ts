@@ -4,4 +4,5 @@ export const CHARACTERS_KEYS = {
   ALL: "characters",
   FILMS: "films",
   STARSHIPS: "starships",
+  IMAGES: "images",
 } as const;
