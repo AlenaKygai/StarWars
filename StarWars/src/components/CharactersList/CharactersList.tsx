@@ -1,7 +1,8 @@
-import ReactPaginate from "react-paginate";
 import React from "react";
 import Modal from "react-modal";
 import useCharactersList from "../../hooks/useCharactersList";
+import Loader from "../Loader/Loader";
+import CharactersListPagination from "../CharactersListPagination/CharactersListPagination";
 import CharacterFlow from "../CharacterFlow/ChatacterFlow";
 import CharacterCard from "../CharacterCard/CharacterCard";
 import type { ICharacter } from "../../api/types";
@@ -20,12 +21,12 @@ const CharactersList = () => {
     selectedCharacter,
   } = useCharactersList();
 
-  if (isLoading) return <div>Loading...</div>;
-
   if (error) return <div>Error: {error.message}</div>;
 
   return (
     <div className="CharactersList">
+      {isLoading && <Loader isLoading />}
+
       <div className="CharactersList__items">
         {data?.map((character: ICharacter) => (
           <CharacterCard
@@ -35,20 +36,21 @@ const CharactersList = () => {
           />
         ))}
       </div>
-      <div className="CharactersList__paginate">
-        <ReactPaginate
-          breakLabel="..."
-          nextLabel="next"
-          onPageChange={handlePageClick}
-          pageRangeDisplayed={5}
-          pageCount={pageCount}
-          previousLabel="previous"
-          renderOnZeroPageCount={null}
-        />
-      </div>
-
+      <CharactersListPagination
+        pageCount={pageCount}
+        handlePageClick={handlePageClick}
+      />
       {selectedCharacter && (
-        <Modal isOpen={modalIsOpen} onRequestClose={handleCloseModal}>
+        <Modal
+          isOpen={modalIsOpen}
+          onRequestClose={handleCloseModal}
+          className="CharactersList__modal">
+          <button
+            onClick={handleCloseModal}
+            className="CharactersList__modal-close"
+            aria-label="Close modal">
+            &times;
+          </button>
           <CharacterFlow selectedCharacter={selectedCharacter} />
         </Modal>
       )}

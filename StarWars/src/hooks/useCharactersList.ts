@@ -85,7 +85,7 @@ const useCharactersList = (): TUseCharactersListReturn => {
 
   return {
     data: dataCharacters,
-    isLoading: isLoadingCharacters && isLoadingFilms && isLoadingStarships,
+    isLoading: isLoadingCharacters || isLoadingFilms || isLoadingStarships,
     error: errorCharacters || errorFilms || errorStarships,
     pageCount,
     handleShowDetails,

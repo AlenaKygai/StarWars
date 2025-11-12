@@ -35,7 +35,7 @@ const useCharactersQuery = (page: number) => {
   return {
     data: characterWithImage,
     count: charactersData?.count,
-    isLoading: imagesLoading && charactersLoading,
+    isLoading: imagesLoading || charactersLoading,
     error: imagesError && charactersError,
   };
 };

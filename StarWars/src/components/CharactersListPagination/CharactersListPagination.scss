@@ -1,0 +1,45 @@
+.characters-pagination {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+
+  &__list {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  &__item {
+    border: 1px solid #dee2e6;
+    margin: 0 3px;
+    border-radius: 4px;
+    color: #000;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+
+    a {
+      padding: 6px 12px;
+      display: block;
+      width: 100%;
+      height: 100%;
+      box-sizing: border-box;
+      color: #fff;
+    }
+
+    &:hover {
+      background-color: #5ba0e6;
+      border-color: #57a2ec;
+      text-decoration: none;
+    }
+
+    &--active {
+      background-color: #fff;
+      border-color: #fff;
+      cursor: default;
+      a {
+        color: #000;
+      }
+    }
+  }
+}

@@ -64,7 +64,7 @@ const CharacterFlow = (props: TCharacterFlowProps) => {
   );
 
   return (
-    <div style={{ width: "100vw", height: "100vh" }}>
+    <div className="CharacterFlow">
       <ReactFlow
         nodes={[caracterNode, ...filmNodes, ...starshipNodes]}
         edges={[...characterFilmsEdges, ...filmStarshipsEdges]}
