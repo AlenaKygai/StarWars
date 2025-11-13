@@ -1,18 +1,22 @@
+// Component for pagination navigation
 import { memo } from "react";
 import ReactPaginate from "react-paginate";
 import type { TPagination } from "../../types";
 import "./CharactersListPagination.scss";
 
+// Props interface for pagination component
 type ICharactersListPaginationProps = {
   pageCount: number;
   handlePageClick: (event: TPagination) => void;
 };
 
+// CharactersListPagination component - renders pagination controls
 const CharactersListPagination = (props: ICharactersListPaginationProps) => {
   const { pageCount, handlePageClick } = props;
 
   return (
     <div className="characters-pagination">
+      {/* ReactPaginate component for page navigation */}
       <ReactPaginate
         breakLabel="..."
         nextLabel="›"

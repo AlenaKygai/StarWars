@@ -1,9 +1,11 @@
+// Header component - displays application header with Star Wars logo
 import { memo } from "react";
 import "./Header.scss";
 
 const Header = () => {
   return (
     <header className="Header">
+      {/* Star Wars logo image */}
       <img
         src="src/assets/logo.png"
         alt="Star Wars Logo"
