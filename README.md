@@ -28,6 +28,7 @@ Before you begin, ensure you have the following installed:
 - **NPM** package manager (or yarn) 📦
 
 You can check your versions by running:
+
 ```bash
 node --version
 npm --version
@@ -40,17 +41,20 @@ npm --version
 ### 📥 Installation
 
 1. **Clone the repository:**
+
 ```bash
 git clone <repository-url>
 cd StarWars
 ```
 
 2. **Install dependencies:**
+
 ```bash
 npm install
 ```
 
 Or if you prefer yarn:
+
 ```bash
 yarn install
 ```
@@ -68,6 +72,7 @@ npm run dev
 ```
 
 Or with yarn:
+
 ```bash
 yarn dev
 ```
@@ -83,6 +88,7 @@ npm run build
 ```
 
 Or with yarn:
+
 ```bash
 yarn build
 ```
@@ -98,6 +104,7 @@ npm run preview
 ```
 
 Or with yarn:
+
 ```bash
 yarn preview
 ```
@@ -117,6 +124,7 @@ npm run test
 ```
 
 Or with yarn:
+
 ```bash
 yarn test
 ```
@@ -130,6 +138,7 @@ npm run test:watch
 ```
 
 Or with yarn:
+
 ```bash
 yarn test:watch
 ```
@@ -143,6 +152,7 @@ npm run test:ui
 ```
 
 Or with yarn:
+
 ```bash
 yarn test:ui
 ```
@@ -158,6 +168,7 @@ npm run lint
 ```
 
 Or with yarn:
+
 ```bash
 yarn lint
 ```
@@ -170,7 +181,6 @@ yarn lint
 StarWars/
 ├── 📂 src/
 │   ├── 📂 api/              # 🔌 API client and utilities
-│   ├── 📂 assets/           # 🖼️ Images and static assets
 │   ├── 📂 components/       # ⚛️ React components
 │   │   ├── CharacterCard/
 │   │   ├── CharacterFlow/
@@ -191,31 +201,31 @@ StarWars/
 
 ## 🛠️ Technologies Used
 
-| Technology | Purpose |
-|------------|---------|
-| ⚛️ **React 18** | UI library |
-| 📘 **TypeScript** | Type safety |
-| ⚡ **Vite** | Build tool and dev server |
-| 🔄 **React Query** | Data fetching and caching |
-| 🌊 **React Flow** | Flow diagram visualization |
-| 🌐 **Axios** | HTTP client |
-| 🧪 **Vitest** | Test runner |
-| 🎯 **React Testing Library** | Component testing |
-| 🎨 **Sass** | Styling |
+| Technology                   | Purpose                    |
+| ---------------------------- | -------------------------- |
+| ⚛️ **React 18**              | UI library                 |
+| 📘 **TypeScript**            | Type safety                |
+| ⚡ **Vite**                  | Build tool and dev server  |
+| 🔄 **React Query**           | Data fetching and caching  |
+| 🌊 **React Flow**            | Flow diagram visualization |
+| 🌐 **Axios**                 | HTTP client                |
+| 🧪 **Vitest**                | Test runner                |
+| 🎯 **React Testing Library** | Component testing          |
+| 🎨 **Sass**                  | Styling                    |
 
 ---
 
 ## 📜 Available Scripts
 
-| Script | Description | Emoji |
-|--------|-------------|-------|
-| `npm run dev` | Start development server | 🚀 |
-| `npm run build` | Build for production (runs tests first) | 🏗️ |
-| `npm run preview` | Preview production build | 👀 |
-| `npm run test` | Run tests once | ✅ |
-| `npm run test:watch` | Run tests in watch mode | 👁️ |
-| `npm run test:ui` | Run tests with UI | 🎨 |
-| `npm run lint` | Run ESLint | 🔍 |
+| Script               | Description                             | Emoji |
+| -------------------- | --------------------------------------- | ----- |
+| `npm run dev`        | Start development server                | 🚀    |
+| `npm run build`      | Build for production (runs tests first) | 🏗️    |
+| `npm run preview`    | Preview production build                | 👀    |
+| `npm run test`       | Run tests once                          | ✅    |
+| `npm run test:watch` | Run tests in watch mode                 | 👁️    |
+| `npm run test:ui`    | Run tests with UI                       | 🎨    |
+| `npm run lint`       | Run ESLint                              | 🔍    |
 
 ---
 

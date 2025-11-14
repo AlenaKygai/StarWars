@@ -6,11 +6,7 @@ const Header = () => {
   return (
     <header className="Header">
       {/* Star Wars logo image */}
-      <img
-        src="src/assets/logo.png"
-        alt="Star Wars Logo"
-        className="Header__logo"
-      />
+      <img src="/logo.png" alt="Star Wars Logo" className="Header__logo" />
     </header>
   );
 };

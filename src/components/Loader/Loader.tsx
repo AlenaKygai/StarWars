@@ -18,11 +18,7 @@ const Loader = (props: TLoaderProps) => {
     <div className="Loader">
       <div className="Loader__container">
         {/* Animated loading GIF */}
-        <img
-          src="src/assets/loader.gif"
-          alt="Loading..."
-          className="Loader__image"
-        />
+        <img src="/loader.gif" alt="Loading..." className="Loader__image" />
       </div>
     </div>
   );
