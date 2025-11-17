@@ -99,7 +99,7 @@ const useCharactersList = (): TUseCharactersListReturn => {
       setSelectedCharacter(modifiedCharacter);
       handleOpenModal();
     },
-    [dataFilms, dataStarships]
+    [dataFilms, dataStarships, handleOpenModal]
   );
 
   return {

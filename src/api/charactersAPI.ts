@@ -18,7 +18,7 @@ const charactersAPI = {
 
   // Fetches paginated characters data
   getCharacters: async (page: number): Promise<ICharactersResponse> => {
-    const response = await api.get<ICharactersResponse>(`/people`, {
+    const response = await api.get<ICharactersResponse>(`/people/`, {
       params: {
         page,
       },
@@ -28,13 +28,13 @@ const charactersAPI = {
 
   // Fetches all films data (handles pagination automatically)
   getFilms: async (): Promise<IFilm[]> => {
-    const response = await fetchAllPages<IFilm>(`/films`);
+    const response = await fetchAllPages<IFilm>(`/films/`);
     return response;
   },
 
   // Fetches all starships data (handles pagination automatically)
   getStarships: async (): Promise<IStarship[]> => {
-    const response = await fetchAllPages<IStarship>(`/starships`);
+    const response = await fetchAllPages<IStarship>(`/starships/`);
     return response;
   },
 };
