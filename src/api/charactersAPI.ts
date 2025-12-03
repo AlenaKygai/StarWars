@@ -1,11 +1,13 @@
 // API service for Star Wars characters, films, and starships
 import { api, apiImages } from "./base";
-import { fetchAllPages } from "./utils";
 import type {
   ICharacterImage,
   ICharactersResponse,
   IFilm,
   IStarship,
+  IFilmsResponse,
+  IStarshipsResponse,
+  ICharacter,
 } from "./types";
 
 // charactersAPI - API service object with methods for fetching Star Wars data
@@ -16,7 +18,7 @@ const charactersAPI = {
     return response.data;
   },
 
-  // Fetches paginated characters data
+  // Fetches paginated characters data (supports API filters)
   getCharacters: async (page: number): Promise<ICharactersResponse> => {
     const response = await api.get<ICharactersResponse>(`/people/`, {
       params: {
@@ -26,16 +28,30 @@ const charactersAPI = {
     return response.data;
   },
 
-  // Fetches all films data (handles pagination automatically)
-  getFilms: async (): Promise<IFilm[]> => {
-    const response = await fetchAllPages<IFilm>(`/films/`);
-    return response;
+  // Fetch single character by ID
+  getCharacterById: async (id: number): Promise<ICharacter> => {
+    const response = await api.get<ICharacter>(`/people/${id}/`);
+    return response.data;
   },
 
-  // Fetches all starships data (handles pagination automatically)
-  getStarships: async (): Promise<IStarship[]> => {
-    const response = await fetchAllPages<IStarship>(`/starships/`);
-    return response;
+  // Fetches films data (supports API filters)
+  getFilms: async (
+    params: Record<string, string | number> = {}
+  ): Promise<IFilm[]> => {
+    const response = await api.get<IFilmsResponse>(`/films/`, {
+      params,
+    });
+    return response.data.results;
+  },
+
+  // Fetches starships data (supports API filters)
+  getStarships: async (
+    params: Record<string, string | number> = {}
+  ): Promise<IStarship[]> => {
+    const response = await api.get<IStarshipsResponse>(`/starships/`, {
+      params,
+    });
+    return response.data.results;
   },
 };
 

@@ -14,8 +14,12 @@ type TCharacterFlowProps = {
 const CharacterFlow = (props: TCharacterFlowProps) => {
   const { selectedCharacter } = props;
 
+  // Safely handle cases when films or starships are empty / missing
+  const films = selectedCharacter?.films || [];
+  const starships = selectedCharacter?.starships || [];
+
   // Main character node at the top of the diagram
-  const caracterNode = {
+  const characterNode = {
     id: `character-${selectedCharacter.id}`,
     position: { x: 0, y: 0 },
     data: { label: selectedCharacter.name },
@@ -24,42 +28,42 @@ const CharacterFlow = (props: TCharacterFlowProps) => {
   // Film nodes positioned below the character
   const filmNodes = useMemo(
     () =>
-      selectedCharacter.films.map((film, idx) => ({
+      films.map((film, idx) => ({
         id: `film-${film.id}`,
         position: { x: -220 + idx * 220, y: 150 },
         data: { label: film.title },
       })),
-    [selectedCharacter.films]
+    [films]
   );
 
   // Starship nodes positioned at the bottom
   const starshipNodes = useMemo(
     () =>
-      selectedCharacter.starships.map((starship, idx) => ({
+      starships.map((starship, idx) => ({
         id: `starship-${starship.id}`,
         position: { x: -300 + idx * 180, y: 320 },
         data: { label: starship.name },
       })),
-    [selectedCharacter.starships]
+    [starships]
   );
 
   // Edges connecting character to films
   const characterFilmsEdges = useMemo(
     () =>
-      selectedCharacter.films.map((film) => ({
+      films.map((film) => ({
         id: `character-film-${film.id}`,
         source: `character-${selectedCharacter.id}`,
         target: `film-${film.id}`,
       })),
-    [selectedCharacter]
+    [films, selectedCharacter.id]
   );
 
   // Edges connecting films to starships (only if starship appears in that film)
   const filmStarshipsEdges = useMemo(
     () =>
-      selectedCharacter.starships.flatMap((starship) => {
+      starships.flatMap((starship) => {
         // Find films where this starship appears
-        const relatedFilms = selectedCharacter.films.filter((film) =>
+        const relatedFilms = films.filter((film) =>
           film.starships.includes(starship.id)
         );
 
@@ -70,15 +74,25 @@ const CharacterFlow = (props: TCharacterFlowProps) => {
           target: `starship-${starship.id}`,
         }));
       }),
-    [selectedCharacter]
+    [films, starships]
   );
+
+  // If there are no films and no starships, show a simple message instead of an empty graph
+  const hasStarships = !!starshipNodes.length;
+  const hasFilms = !!filmNodes.length;
 
   return (
     <div className="CharacterFlow">
       {/* ReactFlow component for rendering the diagram */}
       <ReactFlow
-        nodes={[caracterNode, ...filmNodes, ...starshipNodes]}
-        edges={[...characterFilmsEdges, ...filmStarshipsEdges]}
+        nodes={[characterNode,
+          ...(hasFilms ? filmNodes : []),
+          ...(hasStarships ? starshipNodes : []),
+        ]}
+        edges={[
+          ...(hasFilms ? characterFilmsEdges : []),
+          ...(hasStarships ? filmStarshipsEdges : []),
+        ]}
         fitView>
         {/* Background grid pattern */}
         <Background />
