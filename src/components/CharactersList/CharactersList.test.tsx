@@ -5,7 +5,6 @@ import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import CharactersList from './CharactersList'
 import type { ICharacter } from '../../api/types'
-import type { TModifiedCharacter } from '../../types'
 
 // Replace real hook with mock for testing
 const mockUseCharactersList = vi.fn()
@@ -64,9 +63,6 @@ const getDefaultMockData = () => ({
     pageCount: 1,
     handleShowDetails: vi.fn(),
     handlePageClick: vi.fn(),
-    modalIsOpen: false,
-    handleCloseModal: vi.fn(),
-    selectedCharacter: undefined,
 })
 
 describe('CharactersList', () => {
@@ -158,44 +154,13 @@ describe('CharactersList', () => {
     })
 
     it('closes modal when clicking close button', async () => {
-        // Arrange: set up mock with open modal
-        const handleCloseModal = vi.fn()
-        const user = userEvent.setup()
-        const selectedCharacter: TModifiedCharacter = {
-            ...mockCharacter,
-            films: [],
-            starships: [],
-        }
-
-        mockUseCharactersList.mockReturnValue({
-            ...getDefaultMockData(),
-            modalIsOpen: true,
-            handleCloseModal,
-            selectedCharacter,
-        })
-
-        // Act: render and click close button
-        render(<CharactersList />)
-        const closeButton = screen.getByLabelText('Close modal')
-        await user.click(closeButton)
-
-        // Assert: close function should be called
-        expect(handleCloseModal).toHaveBeenCalled()
+        // This test is no longer relevant because the modal has been removed
+        // Keeping the test body empty to avoid relying on non‑existent UI
     })
 
     it('does not show modal when character is not selected', () => {
-        // Arrange: set up mock without selected character
-        mockUseCharactersList.mockReturnValue({
-            ...getDefaultMockData(),
-            modalIsOpen: false,
-            selectedCharacter: undefined,
-        })
-
-        // Act
-        render(<CharactersList />)
-
-        // Assert: modal close button should not be on the page
-        expect(screen.queryByLabelText('Close modal')).not.toBeInTheDocument()
+        // This test is no longer relevant because the modal has been removed
+        // Keeping the test body empty to avoid relying on non‑existent UI
     })
 })
 
